@@ -66,11 +66,13 @@ export default function SignInSide() {
         <Paper
           elevation={2}
           sx={{
-            width: { xs: '100%', md: '70%', lg: '60%' }, // adjust to control overall width
-            maxWidth: 1200,
+            width: '100%',
+            maxWidth: 900, // reduce this from 1200 to 900 or even 800
+            mx: 'auto',
             borderRadius: 2,
             overflow: 'hidden',
             display: 'flex',
+            flexDirection: 'column',
           }}
         >
           <Grid container>

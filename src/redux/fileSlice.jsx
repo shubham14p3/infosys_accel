@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import fileService from '../services/fileService';
+import fileService from '../services/fileService'; // Adjust path as needed
 
-// Async thunk to fetch files
+// Fetch all files
 export const fetchFiles = createAsyncThunk(
   'files/fetchFiles',
   async (_, thunkAPI) => {
@@ -14,7 +14,7 @@ export const fetchFiles = createAsyncThunk(
   }
 );
 
-// Async thunk to upload a file
+// Upload a file
 export const uploadFile = createAsyncThunk(
   'files/uploadFile',
   async (file, thunkAPI) => {
@@ -27,7 +27,7 @@ export const uploadFile = createAsyncThunk(
   }
 );
 
-// Async thunk to delete a file
+// Delete a file
 export const deleteFile = createAsyncThunk(
   'files/deleteFile',
   async (fileId, thunkAPI) => {
@@ -40,17 +40,46 @@ export const deleteFile = createAsyncThunk(
   }
 );
 
+// Convert files to Excel
+export const convertToExcel = createAsyncThunk(
+  'files/convertToExcel',
+  async (_, thunkAPI) => {
+    try {
+      const response = await fileService.convertToExcel();
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+// Execute upload action
+export const executeUploadAction = createAsyncThunk(
+  'files/executeUploadAction',
+  async (_, thunkAPI) => {
+    try {
+      const response = await fileService.executeUploadAction();
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+// Slice
 const fileSlice = createSlice({
   name: 'files',
   initialState: {
     files: [],
     loading: false,
     error: null,
+    excelData: null,
+    executionResult: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // Handle fetchFiles
+      // Fetch files
       .addCase(fetchFiles.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -63,7 +92,8 @@ const fileSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      // Handle uploadFile
+
+      // Upload file
       .addCase(uploadFile.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -76,7 +106,8 @@ const fileSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      // Handle deleteFile
+
+      // Delete file
       .addCase(deleteFile.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -88,11 +119,36 @@ const fileSlice = createSlice({
       .addCase(deleteFile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+
+      // Convert to Excel
+      .addCase(convertToExcel.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(convertToExcel.fulfilled, (state, action) => {
+        state.loading = false;
+        state.excelData = action.payload;
+      })
+      .addCase(convertToExcel.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Execute upload action
+      .addCase(executeUploadAction.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(executeUploadAction.fulfilled, (state, action) => {
+        state.loading = false;
+        state.executionResult = action.payload;
+      })
+      .addCase(executeUploadAction.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
-  }
+  },
 });
 
 export default fileSlice.reducer;
-
-
-

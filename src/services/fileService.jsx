@@ -12,12 +12,7 @@ const fileService = {
       responseType: 'text',
     });
   },
-  // deleteFile: (fileId) => api.delete(`/deleteAllSideFiles/${fileId}`),
-  deleteFile: (selectedFile) =>
-    api.delete(`/deleteAllSideFiles`, {
-      data: selectedFile,
-      responseType: 'text',
-    }),
+  deleteFile: (fileName) => api.delete(`/deleteAllSideFiles`, { data: [fileName] }),
   convertToExcel: (selectedFile, useCase) =>
     api.post(`/convert-to-excel?useCase=${useCase}`, selectedFile, { responseType: 'text' }),
   executeUploadAction: () => api.post('/executeUploadAction'),

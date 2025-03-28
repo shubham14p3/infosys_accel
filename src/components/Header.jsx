@@ -20,6 +20,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useNavigate } from 'react-router-dom';
+import iconHome from '../assets/appIcon.png';
 
 const Header = ({ toggleSidebar }) => {
   const theme = useTheme();
@@ -42,18 +43,14 @@ const Header = ({ toggleSidebar }) => {
       position="fixed"
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,
+        backgroundColor: 'black',
       }}
     >
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         {/* Left Section */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           {isSmallScreen && (
-            <IconButton
-              color="inherit"
-              edge="start"
-              onClick={toggleSidebar}
-              sx={{ mr: 2 }}
-            >
+            <IconButton color="inherit" edge="start" onClick={toggleSidebar} sx={{ mr: 2 }}>
               <MenuIcon />
             </IconButton>
           )}
@@ -63,7 +60,7 @@ const Header = ({ toggleSidebar }) => {
             sx={{
               width: 36,
               height: 36,
-              bgcolor: 'white',
+              bgcolor: 'black',
               borderRadius: '50%',
               display: 'flex',
               alignItems: 'center',
@@ -72,7 +69,7 @@ const Header = ({ toggleSidebar }) => {
               fontSize: 18,
             }}
           >
-            A
+            <img src={iconHome} alt="AOCAT" width="100%" />
           </Box>
 
           {/* Title */}
@@ -113,7 +110,7 @@ const Header = ({ toggleSidebar }) => {
             </IconButton>
           </Tooltip>
 
-          <Tooltip title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"} arrow>
+          <Tooltip title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'} arrow>
             <IconButton color="inherit" onClick={toggleTheme}>
               {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>

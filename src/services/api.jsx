@@ -1,16 +1,16 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://your-api-base-url.com/api', // Replace with your API endpoint
+  baseURL: 'http://localhost:8086/api', // Replace with local API endpoint later will change to .ENV
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// (Optional) Add request interceptors here
+// (Optional) Adding request interceptors here
 api.interceptors.request.use(
   (config) => {
-    // For example: attach auth tokens if required
+    // Will change to auth tokens if required
     return config;
   },
   (error) => Promise.reject(error)

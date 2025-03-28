@@ -74,14 +74,15 @@ const UploadModal = ({ open, onClose, onFileUpload }) => {
                     }}
                 >
                     <Typography variant="body1" gutterBottom>
-                        Drag and drop a CSV or Excel file here, or click the button below to select a file.
+                        Drag and drop a SIDE file here, or click the button below to select a file.
                     </Typography>
                     <Button variant="contained" component="label" sx={{ mt: 2 }}>
                         Select File
                         <input
                             type="file"
                             hidden
-                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                            accept=".side"
+                            // accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                             onChange={handleFileChange}
                         />
                     </Button>

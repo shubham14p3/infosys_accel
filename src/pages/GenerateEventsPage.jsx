@@ -36,6 +36,9 @@ const GenerateEventsPage = () => {
   const handleFileUpload = (file) => {
     dispatch(uploadFile(file))
       .unwrap()
+      .then(() => {
+        dispatch(fetchFiles());
+      })
       .catch(() => {
         // Fallback behavior in case of an error during upload
         const newId = (files.length || localFiles.length) + 1;
@@ -56,32 +59,33 @@ const GenerateEventsPage = () => {
   };
 
   const handleDeleteSelected = (selectedIds) => {
-  const sourceFiles = error ? localFiles : normalizeFiles(files);
+    const sourceFiles = error ? localFiles : normalizeFiles(files);
 
-  // Map selected IDs to file names
-  const selectedFileNames = selectedIds
-    .map((id) => {
-      const match = sourceFiles.find((file) => file.id === id);
-      return match ? match.name : null;
-    })
-    .filter(Boolean); // Remove nulls
+    // Map selected IDs to file names
+    const selectedFileNames = selectedIds
+      .map((id) => {
+        const match = sourceFiles.find((file) => file.id === id);
+        return match ? match.name : null;
+      })
+      .filter(Boolean); // Remove nulls
 
-  // Log or send the file names array
-  console.log('Deleting files:', selectedFileNames);
+    // Log or send the file names array
+    console.log('Deleting files:', selectedFileNames);
 
-  // Now call deleteFile with names instead of ids (update deleteFile accordingly)
-  selectedFileNames.forEach((fileName) => {
-    dispatch(deleteFile(fileName))
-      .unwrap()
-      .catch(() => {
-        setLocalFiles(localFiles.filter((file) => file.name !== fileName));
-      });
-  });
-};
+    // Now call deleteFile with names instead of ids (update deleteFile accordingly)
+    selectedFileNames.forEach((fileName) => {
+      dispatch(deleteFile(fileName))
+        .unwrap()
+        .catch(() => {
+          setLocalFiles(localFiles.filter((file) => file.name !== fileName));
+        });
+    });
+  };
 
   const handleView = (id) => {
     console.log('Viewing file:', id);
   };
+
   const normalizeFiles = (arr) => {
     return Array.isArray(arr) ? arr.map((name, index) => ({ id: index + 1, name })) : [];
   };

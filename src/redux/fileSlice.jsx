@@ -21,11 +21,20 @@ export const uploadFile = createAsyncThunk('files/uploadFile', async (selectedFi
   }
 });
 
-// Delete a file
-export const deleteFile = createAsyncThunk('files/deleteFile', async (fileId, thunkAPI) => {
-console.log(fileId)
+// Delete Side a file
+export const deleteFileSide = createAsyncThunk('files/deleteFileSide', async (fileId, thunkAPI) => {
   try {
-    await fileService.deleteFile(fileId);
+    await fileService.deleteFileSide(fileId);
+    return fileId;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response?.data || error.message);
+  }
+});
+
+// Delete Xlxs a file
+export const deleteFileXlxs = createAsyncThunk('files/deleteFileXlxs', async (fileId, thunkAPI) => {
+  try {
+    await fileService.deleteFileXlxs(fileId);
     return fileId;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response?.data || error.message);
@@ -96,16 +105,29 @@ const fileSlice = createSlice({
         state.error = action.payload;
       })
 
-      // Delete file
-      .addCase(deleteFile.pending, (state) => {
+      // Delete Side file
+      .addCase(deleteFileSide.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(deleteFile.fulfilled, (state, action) => {
+      .addCase(deleteFileSide.fulfilled, (state, action) => {
         state.loading = false;
         state.files = state.files.filter((file) => file.id !== action.payload);
       })
-      .addCase(deleteFile.rejected, (state, action) => {
+      .addCase(deleteFileSide.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      // Delete Side file
+      .addCase(deleteFileXlxs.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteFileXlxs.fulfilled, (state, action) => {
+        state.loading = false;
+        state.files = state.files.filter((file) => file.id !== action.payload);
+      })
+      .addCase(deleteFileXlxs.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

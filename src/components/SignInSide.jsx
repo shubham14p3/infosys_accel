@@ -17,7 +17,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import GTranslateIcon from '@mui/icons-material/GTranslate'; // Placeholder for Google
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-
+import iconHome from '../assets/appIcon.png';
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -137,7 +137,8 @@ export default function SignInSide() {
               {/* Lock icon and heading */}
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 2 }}>
                 <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-                  <LockOutlinedIcon />
+                  {/* <LockOutlinedIcon /> */}
+                  <img src={iconHome} alt="AOCAT" width="100%" />
                 </Avatar>
                 <Typography component="h1" variant="h5">
                   Welcome to AOCAT

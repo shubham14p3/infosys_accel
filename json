@@ -1,0 +1,300 @@
+{
+  "info": {
+    "_postman_id": "68e15f19-2425-4e6d-b8bc-c07c2a0d7cd4",
+    "name": "FXMLTOSpringboot",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "40038808"
+  },
+  "item": [
+    {
+      "name": "http://localhost:8086/upload/uploadFiles",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/D:/Test/AocatUI/resources/Events/Testcase2.xlsx"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8086/upload/uploadFiles",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8086",
+          "path": ["upload", "uploadFiles"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8086/api/uploadAction",
+      "request": {
+        "auth": { "type": "noauth" },
+        "method": "POST",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/D:/Test/AocatUI/resources/Events/Testcase2.xlsx"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8086/api/uploadAction",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8086",
+          "path": ["api", "uploadAction"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8086/api/recordUseCases?Record=true",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8086/api/recordUseCases?Record=true",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8086",
+          "path": ["api", "recordUseCases"],
+          "query": [
+            {
+              "key": "Record",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8086/execute/executeUploadAction",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": " [\r\n    \"resources\\\\NewFilesforExecute\\\\Testcase2.xlsx\"\r\n ]\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8086/execute/executeUploadAction",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8086",
+          "path": ["execute", "executeUploadAction"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8086/api/convert-to-excel?useCase=TestShashank",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[\r\n    \"Testcase1-sts.side\"\r\n\r\n]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8086/api/convert-to-excel?useCase=TestShashank",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8086",
+          "path": ["api", "convert-to-excel"],
+          "query": [
+            {
+              "key": "useCase",
+              "value": "TestShashank"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8086/execute/executeUseCases",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"excelFilePaths\": [\r\n        \"Test-Shashank.xlsx\"\r\n    ],\r\n    \"waitTime\": 100,\r\n    \"captureScreenshot\": true,\r\n    \"webTestingInParallel\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8086/execute/executeUseCases",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8086",
+          "path": ["execute", "executeUseCases"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8086/api/deleteAllSideFiles",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[\r\n    \"TestProject2.side\"\r\n]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8086/api/deleteAllSideFiles",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8086",
+          "path": ["api", "deleteAllSideFiles"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8086/api/deleteAllXlxFiles",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[\r\n    \"TestHello.xlsx\",\r\n    \"Testcase2.xlsx\"\r\n]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8086/api/deleteAllXlxFiles",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8086",
+          "path": ["api", "deleteAllXlxFiles"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8086/api/getAllSidefiles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8086/api/getAllSidefiles",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8086",
+          "path": ["api", "getAllSidefiles"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

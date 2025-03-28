@@ -23,6 +23,7 @@ export const uploadFile = createAsyncThunk('files/uploadFile', async (selectedFi
 
 // Delete a file
 export const deleteFile = createAsyncThunk('files/deleteFile', async (fileId, thunkAPI) => {
+console.log(fileId)
   try {
     await fileService.deleteFile(fileId);
     return fileId;

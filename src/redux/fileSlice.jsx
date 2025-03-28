@@ -2,56 +2,44 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import fileService from '../services/fileService'; // Adjust path as needed
 
 // Fetch all files
-export const fetchFiles = createAsyncThunk(
-  'files/fetchFiles',
-  async (_, thunkAPI) => {
-    try {
-      const response = await fileService.getFiles();
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data || error.message);
-    }
+export const fetchFiles = createAsyncThunk('files/fetchFiles', async (_, thunkAPI) => {
+  try {
+    const response = await fileService.getFiles();
+    return response.data?.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response?.data || error.message);
   }
-);
+});
 
 // Upload a file
-export const uploadFile = createAsyncThunk(
-  'files/uploadFile',
-  async (file, thunkAPI) => {
-    try {
-      const response = await fileService.uploadFile(file);
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data || error.message);
-    }
+export const uploadFile = createAsyncThunk('files/uploadFile', async (selectedFile, thunkAPI) => {
+  try {
+    const response = await fileService.uploadFile(selectedFile);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response?.data || error.message);
   }
-);
+});
 
 // Delete a file
-export const deleteFile = createAsyncThunk(
-  'files/deleteFile',
-  async (fileId, thunkAPI) => {
-    try {
-      await fileService.deleteFile(fileId);
-      return fileId;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data || error.message);
-    }
+export const deleteFile = createAsyncThunk('files/deleteFile', async (fileId, thunkAPI) => {
+  try {
+    await fileService.deleteFile(fileId);
+    return fileId;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response?.data || error.message);
   }
-);
+});
 
 // Convert files to Excel
-export const convertToExcel = createAsyncThunk(
-  'files/convertToExcel',
-  async (_, thunkAPI) => {
-    try {
-      const response = await fileService.convertToExcel();
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data || error.message);
-    }
+export const convertToExcel = createAsyncThunk('files/convertToExcel', async (_, thunkAPI) => {
+  try {
+    const response = await fileService.convertToExcel();
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response?.data || error.message);
   }
-);
+});
 
 // Execute upload action
 export const executeUploadAction = createAsyncThunk(
@@ -114,7 +102,7 @@ const fileSlice = createSlice({
       })
       .addCase(deleteFile.fulfilled, (state, action) => {
         state.loading = false;
-        state.files = state.files.filter(file => file.id !== action.payload);
+        state.files = state.files.filter((file) => file.id !== action.payload);
       })
       .addCase(deleteFile.rejected, (state, action) => {
         state.loading = false;

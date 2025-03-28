@@ -1,17 +1,26 @@
 import api from './api';
 
 const fileService = {
-  getFiles: () => api.get('/files'),
+  getFiles: () => api.get('/getAllSidefiles'),
   uploadFile: (file) => {
     const formData = new FormData();
-    formData.append('file', file);
-    return api.post('/files', formData, {
+    formData.append('files', file);
+    return api.post('/uploadAction', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
+      responseType: 'text',
     });
   },
-  deleteFile: (fileId) => api.delete(`/files/${fileId}`),
+  // deleteFile: (fileId) => api.delete(`/deleteAllSideFiles/${fileId}`),
+  deleteFile: (selectedFile) =>
+    api.delete(`/deleteAllSideFiles`, {
+      data: selectedFile,
+      responseType: 'text',
+    }),
+  convertToExcel: (selectedFile, useCase) =>
+    api.post(`/convert-to-excel?useCase=${useCase}`, selectedFile, { responseType: 'text' }),
+  executeUploadAction: () => api.post('/executeUploadAction'),
 };
 
 export default fileService;

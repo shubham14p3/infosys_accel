@@ -44,7 +44,6 @@ export default function SignInSide() {
     event.preventDefault();
     // Handle sign-in logic here
     navigate('/dashboard');
-    console.log('Signing in...');
   };
 
   return (

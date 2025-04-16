@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -8,6 +8,11 @@ import {
   useTheme,
   useMediaQuery,
   Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
 } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -19,7 +24,10 @@ import LanguageIcon from '@mui/icons-material/Language';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { recordUseCases } from '../redux/fileSlice';
 import iconHome from '../assets/appIcon.png';
 
 const Header = ({ toggleSidebar }) => {
@@ -27,15 +35,38 @@ const Header = ({ toggleSidebar }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [darkMode, setDarkMode] = React.useState(false);
+  const [timeModalOpen, setTimeModalOpen] = useState(false);
+  const [currentTime, setCurrentTime] = useState('');
 
   const toggleTheme = () => setDarkMode(!darkMode);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const goHome = () => {
     navigate('/dashboard');
   };
   const logOut = () => {
     navigate('/signin');
+  };
+  const geSetting = () => {
+    navigate('/dashboard/home2');
+  };
+  const geProfile = () => {
+    navigate('/profile');
+  };
+  const showCurrentTime = () => {
+    const now = new Date().toLocaleTimeString();
+    setCurrentTime(now);
+    setTimeModalOpen(true);
+  };
+  const closeTimeModal = () => {
+    setTimeModalOpen(false);
+  };
+  const handleRecordUseCases = async () => {
+    const result = await dispatch(recordUseCases(true)).unwrap();
+    if (result) {
+      navigate('/dashboard/generate-events');
+    }
   };
 
   return (
@@ -87,19 +118,19 @@ const Header = ({ toggleSidebar }) => {
           </Tooltip>
 
           <Tooltip title="Settings" arrow>
-            <IconButton color="inherit">
+            <IconButton color="inherit" onClick={geSetting}>
               <SettingsIcon />
             </IconButton>
           </Tooltip>
 
           <Tooltip title="Profile" arrow>
-            <IconButton color="inherit">
+            <IconButton color="inherit" onClick={geProfile}>
               <AccountCircleIcon />
             </IconButton>
           </Tooltip>
 
           <Tooltip title="Current Time" arrow>
-            <IconButton color="inherit">
+            <IconButton color="inherit" onClick={showCurrentTime}>
               <AccessTimeIcon />
             </IconButton>
           </Tooltip>
@@ -116,6 +147,12 @@ const Header = ({ toggleSidebar }) => {
             </IconButton>
           </Tooltip>
 
+          <Tooltip title="Record Use Cases" arrow>
+            <IconButton color="inherit" onClick={handleRecordUseCases}>
+              <PlayArrowIcon />
+            </IconButton>
+          </Tooltip>
+
           <Tooltip title="Logout" arrow>
             <IconButton color="inherit" onClick={logOut}>
               <LogoutIcon />
@@ -123,6 +160,19 @@ const Header = ({ toggleSidebar }) => {
           </Tooltip>
         </Box>
       </Toolbar>
+
+      {/* Current Time Modal */}
+      <Dialog open={timeModalOpen} onClose={closeTimeModal}>
+        <DialogTitle>Current Time</DialogTitle>
+        <DialogContent>
+          <Typography>{currentTime}</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeTimeModal} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </AppBar>
   );
 };
